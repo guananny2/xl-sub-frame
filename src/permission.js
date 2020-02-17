@@ -25,7 +25,8 @@ router.beforeEach(async(to, from, next) => {
     setStorageByKey(Keys.buttons, JSON.stringify(data))
   })
 
-  // TODO 验证消息功能
+  // TODO 参数配置 根据项目要求重新配置
+  // 子项目路由跳转的时候 sendMessage 给框架项目 ,用户框架项目确定子系统的路由
   sendMessage({
     sysCode: '102',
     res: to.fullPath,
