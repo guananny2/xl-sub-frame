@@ -44,6 +44,7 @@ export default {
   },
   data() {
     return {
+      activeName: 'first',
       defaultProps: {
         children: 'children',
         label: 'text',
@@ -72,8 +73,9 @@ export default {
 
 <style scoped>
 .chart-container{
+  border: 1px solid blue;
   position: relative;
   width: 100%;
-  height: calc(100vh - 84px);
+  height: calc(100vh - 184px);
 }
 </style>
