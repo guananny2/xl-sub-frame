@@ -1,7 +1,5 @@
 <template>
   <div class="dashboard-editor-container">
-    <github-corner class="github-corner" />
-
     <el-button v-permission="'add'" type="success" @click="doEdit">{{ edit ? '保存' : '编辑' }}</el-button>
     <el-button v-permission="'delete'" type="success">删除</el-button>
     <el-button v-permission="'reset'" type="success" @click="reset">重置</el-button>
@@ -35,7 +33,6 @@
 </template>
 
 <script>
-import GithubCorner from '@/components/GithubCorner'
 import PanelGroup from './components/PanelGroup'
 import LineChart from './components/LineChart'
 import RaddarChart from './components/RaddarChart'
@@ -54,7 +51,6 @@ import permission from '@/directive/button-permission'
 export default {
   name: 'DashboardAdmin',
   components: {
-    GithubCorner,
     PanelGroup,
     LineChart,
     RaddarChart,
