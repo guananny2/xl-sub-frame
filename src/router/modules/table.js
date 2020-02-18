@@ -34,13 +34,6 @@ const tableRouter = {
       // hidden: true
     },
     {
-      path: 'company-monitor/:id',
-      component: () => import('@/views/table/company-monitor/index'),
-      name: 'CompanyMonitor',
-      meta: { title: '企业监控' }
-      // hidden: true
-    },
-    {
       path: 'complex-table',
       component: () => import('@/views/table/complex-table'),
       name: 'ComplexTable',
