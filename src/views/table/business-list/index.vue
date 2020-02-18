@@ -63,7 +63,8 @@ export default {
           sortable: true,
           render: (row, index) => {
             return (
-              <router-link to={`company-monitor/${row.CompanyName}`} class='link-type'>{ row.CompanyName }</router-link>
+              <router-link to={`/table/company-info/${row.CompanyName}`} class='link-type'>{ row.CompanyName }</router-link>
+              // <router-link to={`business-list/${row.date1}`} class='link-type'>{ row.date1 }</router-link>
             )
           }
         },

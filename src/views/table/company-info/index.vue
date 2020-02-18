@@ -9,14 +9,25 @@
       />
     </el-col>
     <el-col :span="20">
-      <el-row>
-        s
-      </el-row>
-      <el-row>
-        <div class="chart-container">
-          <chart height="100%" width="100%" />
-        </div>
-      </el-row>
+      <el-tabs v-model="activeName">
+        <el-tab-pane label="用电数据" name="first">
+          <div class="chart-container">
+            <chart height="100%" width="100%" />
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="污处异常" name="second">
+          <span>污处异常</span>
+        </el-tab-pane>
+        <el-tab-pane label="减排异常" name="third">
+          <span>减排异常</span>
+        </el-tab-pane>
+        <el-tab-pane label="企业档案" name="forth">
+          <span>企业档案</span>
+        </el-tab-pane>
+        <el-tab-pane label="企业地图" name="fifth">
+          <span>企业地图</span>
+        </el-tab-pane>
+      </el-tabs>
     </el-col>
   </el-row>
 </template>
