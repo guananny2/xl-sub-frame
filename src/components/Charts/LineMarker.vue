@@ -46,7 +46,6 @@ export default {
       this.chart = echarts.init(document.getElementById(this.id))
 
       this.chart.setOption({
-        backgroundColor: '#394056',
         title: {
           top: 20,
           text: 'Requests',
@@ -74,8 +73,7 @@ export default {
           data: ['CMCC', 'CTCC', 'CUCC'],
           right: '4%',
           textStyle: {
-            fontSize: 12,
-            color: '#F1F1F3'
+            fontSize: 12
           }
         },
         grid: {
