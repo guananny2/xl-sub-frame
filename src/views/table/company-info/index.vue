@@ -11,21 +11,19 @@
     <el-col :span="20">
       <el-tabs v-model="activeName">
         <el-tab-pane label="用电数据" name="first">
-          <div class="chart-container">
-            <chart height="100%" width="100%" />
-          </div>
+          <electricity-data />
         </el-tab-pane>
         <el-tab-pane label="污处异常" name="second">
-          <span>污处异常</span>
+          <pollution-treat />
         </el-tab-pane>
         <el-tab-pane label="减排异常" name="third">
-          <span>减排异常</span>
+          <EmissionReduction />
         </el-tab-pane>
         <el-tab-pane label="企业档案" name="forth">
-          <span>企业档案</span>
+          <EnterpriseArchives />
         </el-tab-pane>
         <el-tab-pane label="企业地图" name="fifth">
-          <span>企业地图</span>
+          <BusinessMap />
         </el-tab-pane>
       </el-tabs>
     </el-col>
@@ -34,13 +32,21 @@
 
 <script>
 import { fetchList } from '@/api/company-info'
-import Chart from '@/components/Charts/LineMarker'
+import ElectricityData from './components/ElectricityData'
+import PollutionTreat from './components/PollutionTreat'
+import EmissionReduction from './components/EmissionReduction'
+import EnterpriseArchives from './components/EnterpriseArchives'
+import BusinessMap from './components/BusinessMap'
 
 export default {
 
   name: 'CompanyInfo',
   components: {
-    Chart
+    ElectricityData,
+    PollutionTreat,
+    EmissionReduction,
+    EnterpriseArchives,
+    BusinessMap
   },
   data() {
     return {
@@ -72,10 +78,5 @@ export default {
 </script>
 
 <style scoped>
-.chart-container{
-  border: 1px solid blue;
-  position: relative;
-  width: 100%;
-  height: calc(100vh - 184px);
-}
+
 </style>

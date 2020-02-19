@@ -7,3 +7,25 @@ export function fetchList(url) {
   })
 }
 
+export function fetchArchives(url) {
+  return request({
+    url: '/company/archives',
+    method: 'get'
+  })
+}
+
+export function fetchAbnormalInformation(params) {
+  return request({
+    url: '/company/abnormalInformation',
+    method: 'post',
+    params
+  })
+}
+
+export function fetchLimitProduction(params) {
+  return request({
+    url: '/company/limitProduction',
+    method: 'post',
+    params
+  })
+}
