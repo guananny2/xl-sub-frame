@@ -35,11 +35,16 @@ export default {
     return {
       value: '',
       query: {
-        user: '',
-        industryId: 20,
-        statusId: '',
-        pageIndex: 1,
-        pageSize: 10
+        token: 6480533415686144,
+        queryType: 0,
+        searchType: 1,
+        companyName: '',
+        orgId: 13920,
+        industryId: -1,
+        Pf_statusId: -1,
+        classfiyCompany: -1,
+        pIdx: 1,
+        pSize: 100
       },
       list: [],
       pagination: {
@@ -168,50 +173,39 @@ export default {
       ],
       formList: [
         {
-          label: '企业名称',
-          field: 'name',
+          label: '名称',
+          field: 'companyName',
           type: 'input',
           dataType: 'text',
           placeholder: '请输入名称'
         },
         {
-          label: '数量',
-          field: 'number',
-          type: 'input',
-          dataType: 'number',
-          placeholder: '请输入数量'
-        },
-        {
-          label: '活动区域',
-          field: 'region',
-          type: 'select',
-          placeholder: '请选择活动区域',
-          url: '/search/select'
-        },
-        {
-          label: '活动区域1',
-          field: 'region1',
-          type: 'selectCheck',
-          placeholder: '请选择活动区域11',
-          url: '/search/select'
-        },
-        {
           label: '机构',
-          field: 'business',
+          field: 'orgId',
           type: 'treeSelect',
           placeholder: '请选择机构',
           url: '/search/selectTree'
         },
         {
-          label: '日期',
-          field: 'date',
-          type: 'date',
-          placeholder: '请选择日期'
+          label: '行业',
+          field: 'industryId',
+          type: 'select',
+          placeholder: '请选择行业',
+          url: '/search/select'
         },
         {
-          label: '日期范围',
-          field: 'daterange',
-          type: 'daterange'
+          label: '生产状态',
+          field: 'Pf_statusId',
+          type: 'select',
+          placeholder: '请选择生产状态',
+          url: '/search/select'
+        },
+        {
+          label: '运维公司',
+          field: 'classfiyCompany',
+          type: 'select',
+          placeholder: '请选择运维公司',
+          url: '/search/select'
         }
       ]
     }
@@ -242,7 +236,6 @@ export default {
       this.getList()
     },
     handlePageChange(val) {
-      // console.log('page change', this.pagination)
       this.pagination = {
         ...this.pagination,
         pageIndex: val
@@ -261,7 +254,8 @@ export default {
       console.log('row', row)
     },
     queryList(val) {
-      console.log('value', val)
+      this.query = { ...this.query, ...val }
+      this.getList()
     }
   }
 }
