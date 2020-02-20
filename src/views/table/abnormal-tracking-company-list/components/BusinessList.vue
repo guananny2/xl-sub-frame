@@ -2,7 +2,7 @@
   <div>
     <el-form :inline="true" :model="query" class="demo-form-inline">
       <el-form-item label="名称:">
-        <el-input v-model="query.user" placeholder="输入企业" />
+        <el-input v-model="query.companyName" placeholder="输入企业" />
       </el-form-item>
       <el-form-item label="行业:">
         <XlTreeSelect
@@ -52,9 +52,14 @@ export default {
   data() {
     return {
       query: {
-        user: '',
-        industryId: 20,
-        statusId: ''
+        token: 6480533415686144,
+        companyName: '', // 名称
+        userId: 0,
+        queryType: 1,
+        searchType: 0,
+        orgId: 15542,
+        industryId: 0, // 行业
+        statusId: -1 // 生产状态
       },
       pagination: {
         pageSize: 10,
@@ -63,10 +68,10 @@ export default {
       },
       businessList: [],
       statusList: [
-        { label: '全部', value: '-1' },
-        { label: '正常', value: '0' },
-        { label: '限产', value: '13' },
-        { label: '停产', value: '14' }
+        { label: '全部', value: -1 },
+        { label: '正常', value: 0 },
+        { label: '限产', value: 13 },
+        { label: '停产', value: 14 }
       ],
       props: { // 配置项（必选）
         value: 'id',
@@ -84,7 +89,7 @@ export default {
         { id: 7, parentId: 4, name: '三级菜单A-A-A', rank: 3 },
         { id: 8, parentId: 4, name: '三级菜单A-A-B', rank: 3 },
         { id: 9, parentId: 4, name: '三级菜单A-A-C', rank: 3 },
-        { id: 15, parentId: 0, name: '一级菜单C1', rank: 1 },
+        { id: 15, parentId: 0, name: '一级菜单eeC1', rank: 1 },
         { id: 16, parentId: 0, name: '一级菜单D', rank: 1 },
         { id: 17, parentId: 0, name: '一级菜单E', rank: 1 },
         { id: 18, parentId: 0, name: '一级菜单F', rank: 1 },
@@ -171,7 +176,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log('submit! 机构', this.query)
+      this.getList()
     },
     getValue(value) {
       console.log('父组件中的值', value)
