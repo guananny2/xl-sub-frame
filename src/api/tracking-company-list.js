@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
-export function fetchBusinessList(query) {
+export function fetchBusinessList(params) {
   return request({
     url: '/abnormal/companyList',
     method: 'post',
-    params: query
+    params
   })
 }
 
