@@ -66,10 +66,10 @@ import XLQueryForm from '@/components/XLQueryForm'
 import moment from 'moment'
 import { fetchOperationStateList } from '@/api/operationState'
 import CardList from './components/CardList'
-import BarChart from './components/BarChart'
-import HeapUpBarChart from './components/HeapUpBarChart'
-import PieChart from './components/PieChart'
-import RaddarChart from './components/RaddarChart'
+import BarChart from '@/components/XLCharts/BarChart'
+import HeapUpBarChart from '@/components/XLCharts/HeapUpBarChart'
+import PieChart from '@/components/XLCharts/PieChart'
+import RaddarChart from '@/components/XLCharts/RaddarChart'
 
 export default {
   name: 'OperationState',
