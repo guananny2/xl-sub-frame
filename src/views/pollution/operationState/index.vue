@@ -11,23 +11,23 @@
       <el-col :xs="24" :sm="24" :lg="12">
         <el-tabs v-model="activeName.firstPanel">
           <el-tab-pane label="污处异常企业" name="first">
-            <BarChart :x-axis-data="xAxisData" :data="AbnormalComList" />
+            <BarChart :x-axis-data="abnormalObj.xAxisData" :data="abnormalObj.AbnormalComList" />
           </el-tab-pane>
           <el-tab-pane label="检查企业" name="second">
-            <BarChart :data="InValidComList" :x-axis-data="xAxisData" />
+            <BarChart :data="abnormalObj.InValidComList" :x-axis-data="abnormalObj.xAxisData" />
           </el-tab-pane>
           <el-tab-pane label="立案处罚企业" name="third">
-            <BarChart :data="CheckedComList" :x-axis-data="xAxisData" />
+            <BarChart :data="abnormalObj.CheckedComList" :x-axis-data="abnormalObj.xAxisData" />
           </el-tab-pane>
           <el-tab-pane label="处罚金额" name="fourth">
-            <BarChart :data="PunishedComList" :x-axis-data="xAxisData" />
+            <BarChart :data="abnormalObj.PunishedComList" :x-axis-data="abnormalObj.xAxisData" />
           </el-tab-pane>
         </el-tabs>
       </el-col>
       <el-col :xs="24" :sm="24" :lg="12">
         <el-tabs v-model="activeName.secondPanel">
           <el-tab-pane label="异常时长Top5" name="first">
-            <!-- <BarChart /> -->
+            <HeapUpBarChart :y-axis-data="abnormalTopObj.yAxisData" :data="abnormalTopObj.data" />
           </el-tab-pane>
         </el-tabs>
       </el-col>
@@ -67,13 +67,15 @@ import moment from 'moment'
 import { fetchOperationStateList } from '@/api/operationState'
 import CardList from './components/CardList'
 import BarChart from './components/BarChart'
+import HeapUpBarChart from './components/HeapUpBarChart'
 
 export default {
   name: 'OperationState',
   components: {
     XLQueryForm,
     CardList,
-    BarChart
+    BarChart,
+    HeapUpBarChart
   },
   data() {
     return {
@@ -151,11 +153,17 @@ export default {
         fourthPanel: 'first',
         fifthPanel: 'first'
       },
-      AbnormalComList: [],
-      InValidComList: [],
-      CheckedComList: [],
-      PunishedComList: [],
-      xAxisData: []
+      abnormalObj: {
+        AbnormalComList: [],
+        InValidComList: [],
+        CheckedComList: [],
+        PunishedComList: [],
+        xAxisData: []
+      },
+      abnormalTopObj: {
+        yAxisData: [],
+        data: []
+      }
     }
   },
   created() {
@@ -170,11 +178,15 @@ export default {
           item.count = this.statistics.Data[item.prop]
         })
         this.statistics.Data.AbnormalComDistribution.map(item => {
-          this.xAxisData.push(item.OrgName)
-          this.AbnormalComList.push(item.AbnormalComList.length)
-          this.InValidComList.push(item.InValidComList.length)
-          this.CheckedComList.push(item.CheckedComList.length)
-          this.PunishedComList.push(item.PunishedComList.length)
+          this.abnormalObj.xAxisData.push(item.OrgName)
+          this.abnormalObj.AbnormalComList.push(item.AbnormalComList.length)
+          this.abnormalObj.InValidComList.push(item.InValidComList.length)
+          this.abnormalObj.CheckedComList.push(item.CheckedComList.length)
+          this.abnormalObj.PunishedComList.push(item.PunishedComList.length)
+        })
+        this.statistics.Data.AbnormalComTop10.map(item => {
+          this.abnormalTopObj.data.push(item.AbnormalNum)
+          this.abnormalTopObj.yAxisData.push(item.CompanyName)
         })
       })
     },

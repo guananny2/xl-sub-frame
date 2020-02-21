@@ -27,11 +27,15 @@ export default {
     autoResize: {
       type: Boolean,
       default: true
+    },
+    yAxisData: {
+      type: Array,
+      default: () => []
+    },
+    data: {
+      type: Array,
+      default: () => []
     }
-    // chartData: {
-    //   type: Object,
-    //   required: true
-    // }
   },
   data() {
     return {
@@ -39,11 +43,16 @@ export default {
     }
   },
   watch: {
-    chartData: {
-      deep: true,
-      handler(val) {
-        this.setOptions(val)
-      }
+    data: function(newVal, oldVal) {
+      const option = this.chart.getOption()
+      option.series[0].data = newVal
+      option.yAxis[1].data = newVal
+      this.chart.setOption(option)
+    },
+    yAxisData: function(newVal, oldVal) {
+      const option = this.chart.getOption()
+      option.yAxis[0].data = newVal
+      this.chart.setOption(option)
     }
   },
   mounted() {
@@ -72,10 +81,6 @@ export default {
             type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
           }
         },
-        legend: {
-          data: ['污处设施异常', '大气污染管控异常'],
-          left: 'right'
-        },
         grid: {
           left: 10,
           right: 10,
@@ -95,7 +100,7 @@ export default {
           axisTick: {
             show: false
           },
-          data: ['无锡市生态环境局', '苏州市生态环境局', '宿迁市生态环境局', '南通市生态环境局', '连云港市环境保护局', '扬州市环境保护局', '南京市环境保护局']
+          data: this.yAxisData
         },
         {
           type: 'category',
@@ -106,7 +111,7 @@ export default {
           axisTick: {
             show: false
           },
-          data: [420, 602, 501, 634, 690, 730, 520]
+          data: this.data
         }
         ],
         series: [
@@ -114,14 +119,7 @@ export default {
             name: '污处设施异常',
             type: 'bar',
             stack: '总量',
-            data: [320, 302, 301, 334, 390, 330, 320],
-            animationDuration
-          },
-          {
-            name: '大气污染管控异常',
-            type: 'bar',
-            stack: '总量',
-            data: [120, 132, 101, 134, 90, 230, 210],
+            data: this.data,
             animationDuration
           }
         ]

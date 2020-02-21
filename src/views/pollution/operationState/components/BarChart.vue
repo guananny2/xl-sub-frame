@@ -35,19 +35,19 @@ export default {
   },
   data() {
     return {
-      chart: null,
-      data1: [],
-      xAxisData1: []
+      chart: null
     }
   },
   watch: {
     data: function(newVal, oldVal) {
-      this.data1 = newVal
-      this.initChart()
+      const option = this.chart.getOption()
+      option.series[0].data = newVal
+      this.chart.setOption(option)
     },
     xAxisData: function(newVal, oldVal) {
-      this.xAxisData1 = newVal
-      this.initChart()
+      const option = this.chart.getOption()
+      option.xAxis[0].data = newVal
+      this.chart.setOption(option)
     }
   },
   mounted() {
@@ -86,7 +86,7 @@ export default {
         },
         xAxis: [{
           type: 'category',
-          data: this.xAxisData1,
+          data: this.xAxisData,
           axisLabel: {
             rotate: 30
           }
@@ -102,7 +102,7 @@ export default {
           type: 'bar',
           stack: 'vistors',
           barWidth: '60%',
-          data: this.data1,
+          data: this.data,
           animationDuration
         }]
       })
