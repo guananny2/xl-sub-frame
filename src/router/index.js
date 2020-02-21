@@ -79,7 +79,7 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        meta: { title: '总体监控预览', icon: 'dashboard', affix: true }
       }
     ]
   },
@@ -104,6 +104,28 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
+  {
+    path: '/pollution',
+    component: Layout,
+    redirect: '/pollution/operationState',
+    alwaysShow: true,
+    name: 'Pollution',
+    meta: {
+      title: '污处设施监控',
+      icon: 'lock'
+    },
+    children: [
+      {
+        path: 'operationState',
+        component: () => import('@/views/pollution/operationState'),
+        name: 'OperationState',
+        meta: {
+          title: '运行状况分析'
+          // roles: ['admin'] // or you can only set roles in sub nav
+        }
+      }
+    ]
+  },
   {
     path: '/permission',
     component: Layout,
