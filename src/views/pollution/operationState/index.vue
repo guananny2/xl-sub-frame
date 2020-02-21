@@ -37,21 +37,21 @@
       <el-col :xs="24" :sm="24" :lg="8">
         <el-tabs v-model="activeName.thirdPanel">
           <el-tab-pane label="异常企业行业分布" name="first">
-            <!-- <BarChart /> -->
+            <PieChart :data="abnormalIndustryObj.data" :rad="abnormalIndustryObj.radius" />
           </el-tab-pane>
         </el-tabs>
       </el-col>
       <el-col :xs="24" :sm="24" :lg="8">
         <el-tabs v-model="activeName.fourthPanel">
           <el-tab-pane label="异常原因统计" name="first">
-            <!-- <BarChart /> -->
+            <PieChart :data="abnormalReasonsObj.data" :rad="abnormalReasonsObj.radius" />
           </el-tab-pane>
         </el-tabs>
       </el-col>
       <el-col :xs="24" :sm="24" :lg="8">
         <el-tabs v-model="activeName.fifthPanel">
           <el-tab-pane label="异常查处率" name="first">
-            <!-- <BarChart /> -->
+            <RaddarChart />
           </el-tab-pane>
         </el-tabs>
       </el-col>
@@ -68,6 +68,8 @@ import { fetchOperationStateList } from '@/api/operationState'
 import CardList from './components/CardList'
 import BarChart from './components/BarChart'
 import HeapUpBarChart from './components/HeapUpBarChart'
+import PieChart from './components/PieChart'
+import RaddarChart from './components/RaddarChart'
 
 export default {
   name: 'OperationState',
@@ -75,7 +77,9 @@ export default {
     XLQueryForm,
     CardList,
     BarChart,
-    HeapUpBarChart
+    HeapUpBarChart,
+    PieChart,
+    RaddarChart
   },
   data() {
     return {
@@ -163,6 +167,14 @@ export default {
       abnormalTopObj: {
         yAxisData: [],
         data: []
+      },
+      abnormalIndustryObj: {
+        data: [],
+        radius: ['30%', '70%']
+      },
+      abnormalReasonsObj: {
+        data: [],
+        radius: '55%'
       }
     }
   },
@@ -187,6 +199,12 @@ export default {
         this.statistics.Data.AbnormalComTop10.map(item => {
           this.abnormalTopObj.data.push(item.AbnormalNum)
           this.abnormalTopObj.yAxisData.push(item.CompanyName)
+        })
+        this.statistics.Data.AbnormalComIndustrys.map(item => {
+          this.abnormalIndustryObj.data.push({ value: item.AbnormalComNum, name: item.IndustryName })
+        })
+        this.statistics.Data.AbnormalReasons.map(item => {
+          this.abnormalReasonsObj.data.push({ value: item.ReasonNum, name: item.Reason })
         })
       })
     },
