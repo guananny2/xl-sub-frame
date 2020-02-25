@@ -8,6 +8,7 @@ require('echarts/theme/macarons') // echarts theme
 import resize from './mixins/resize'
 
 const animationDuration = 3000
+// const ecConfig = require('echarts/config')
 
 export default {
   mixins: [resize],
@@ -35,6 +36,10 @@ export default {
     data: {
       type: Array,
       default: () => []
+    },
+    path: {
+      type: String,
+      default: null
     }
   },
   data() {
@@ -70,12 +75,17 @@ export default {
   methods: {
     initChart() {
       this.chart = echarts.init(this.$el, 'macarons')
+      this.chart.on('click', this.eConsole)
+
       this.setOptions(this.chartData)
     },
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         tooltip: {
           trigger: 'axis',
+          formatter: function(params, ticket, callback) {
+            return `${params[0].axisValue.value}: ${params[0].data}小时`
+          },
           axisPointer: {
             // 坐标轴指示器，坐标轴触发有效
             type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
@@ -100,6 +110,12 @@ export default {
           axisTick: {
             show: false
           },
+          triggerEvent: true,
+          axisLabel: {
+            formatter: function({ value, id }, index) {
+              return `${value}`
+            }
+          },
           data: this.yAxisData
         },
         {
@@ -111,19 +127,40 @@ export default {
           axisTick: {
             show: false
           },
+          axisLabel: {
+            formatter: function(value, index) {
+              return `${value}H`
+            }
+          },
+          triggerEvent: false,
           data: this.data
         }
         ],
         series: [
           {
-            name: '污处设施异常',
             type: 'bar',
             stack: '总量',
             data: this.data,
-            animationDuration
+            animationDuration,
+            triggerEvent: false,
+            itemStyle: {
+              // color: "",
+              barBorderRadius: 5
+            },
+            barWidth: 20
           }
         ]
       })
+    },
+    eConsole(param) {
+      if (typeof param.seriesIndex !== 'undefined') {
+        return
+      }
+      if (param.type === 'click') {
+        if (this.path) {
+          this.$router.push({ path: `/${this.path}`, query: { id: param.value.id }})
+        }
+      }
     }
   }
 }

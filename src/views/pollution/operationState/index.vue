@@ -27,7 +27,7 @@
       <el-col :xs="24" :sm="24" :lg="12">
         <el-tabs v-model="activeName.secondPanel">
           <el-tab-pane label="异常时长Top5" name="first">
-            <HeapUpBarChart :y-axis-data="abnormalTopObj.yAxisData" :data="abnormalTopObj.data" />
+            <HeapUpBarChart :y-axis-data="abnormalTopObj.yAxisData" :data="abnormalTopObj.data" :path="abnormalTopObj.path" />
           </el-tab-pane>
         </el-tabs>
       </el-col>
@@ -166,7 +166,9 @@ export default {
       },
       abnormalTopObj: {
         yAxisData: [],
-        data: []
+        data: [],
+        // TODO 链接跳转到真实页面
+        path: 'table/abnormal-tracking-company-list'
       },
       abnormalIndustryObj: {
         data: [],
@@ -198,7 +200,7 @@ export default {
         })
         this.statistics.Data.AbnormalComTop10.map(item => {
           this.abnormalTopObj.data.push(item.AbnormalNum)
-          this.abnormalTopObj.yAxisData.push(item.CompanyName)
+          this.abnormalTopObj.yAxisData.push({ value: { value: item.CompanyName, id: item.CompanyId }})
         })
         this.statistics.Data.AbnormalComIndustrys.map(item => {
           this.abnormalIndustryObj.data.push({ value: item.AbnormalComNum, name: item.IndustryName })
