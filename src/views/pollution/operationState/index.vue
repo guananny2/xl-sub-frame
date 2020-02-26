@@ -37,14 +37,14 @@
       <el-col :xs="24" :sm="24" :lg="8">
         <el-tabs v-model="activeName.thirdPanel">
           <el-tab-pane label="异常企业行业分布" name="first">
-            <PieChart :data="abnormalIndustryObj.data" :rad="abnormalIndustryObj.radius" />
+            <PieChart :data="abnormalIndustryObj.data" :rad="abnormalIndustryObj.radius" :path="abnormalIndustryObj.path" />
           </el-tab-pane>
         </el-tabs>
       </el-col>
       <el-col :xs="24" :sm="24" :lg="8">
         <el-tabs v-model="activeName.fourthPanel">
           <el-tab-pane label="异常原因统计" name="first">
-            <PieChart :data="abnormalReasonsObj.data" :rad="abnormalReasonsObj.radius" />
+            <PieChart :data="abnormalReasonsObj.data" :rad="abnormalReasonsObj.radius" :path="abnormalReasonsObj.path" />
           </el-tab-pane>
         </el-tabs>
       </el-col>
@@ -172,10 +172,14 @@ export default {
       },
       abnormalIndustryObj: {
         data: [],
+        // TODO 链接跳转到真实页面
+        path: 'table/abnormal-tracking-company-list',
         radius: ['30%', '70%']
       },
       abnormalReasonsObj: {
         data: [],
+        // TODO 链接跳转到真实页面
+        path: 'table/abnormal-tracking-company-list',
         radius: '55%'
       }
     }
@@ -203,10 +207,10 @@ export default {
           this.abnormalTopObj.yAxisData.push({ value: { value: item.CompanyName, id: item.CompanyId }})
         })
         this.statistics.Data.AbnormalComIndustrys.map(item => {
-          this.abnormalIndustryObj.data.push({ value: item.AbnormalComNum, name: item.IndustryName })
+          this.abnormalIndustryObj.data.push({ value: [item.AbnormalComNum, item.IndustryId, '家'], name: item.IndustryName })
         })
         this.statistics.Data.AbnormalReasons.map(item => {
-          this.abnormalReasonsObj.data.push({ value: item.ReasonNum, name: item.Reason })
+          this.abnormalReasonsObj.data.push({ value: [item.ReasonNum, item.ReasonId, '次'], name: item.Reason })
         })
       })
     },

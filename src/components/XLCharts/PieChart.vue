@@ -35,6 +35,10 @@ export default {
     rad: {
       type: [Array, String],
       default: () => []
+    },
+    path: {
+      type: String,
+      default: null
     }
   },
   data() {
@@ -44,7 +48,6 @@ export default {
   },
   watch: {
     data: function(newVal, oldVal) {
-      console.log('this.new val', this.rad)
       const option = this.chart.getOption()
       option.series[0].data = newVal
       option.series[0].radius = this.rad || this.radius
@@ -66,13 +69,16 @@ export default {
   methods: {
     initChart() {
       this.chart = echarts.init(this.$el, 'macarons')
+      this.chart.on('click', this.eConsole)
       this.setOptions(this.chartData)
     },
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b}: {c} ({d}%)'
+          formatter: function({ seriesName, data, percent }) {
+            return `${seriesName} <Br/> ${data.name}: ${data.value[0]} ${data.value[2]}(${percent}%)`
+          }
         },
         series: [
           {
@@ -84,7 +90,9 @@ export default {
             label: {
               normal: {
                 show: true,
-                formatter: '{b}\n {c}家 '
+                formatter: function({ seriesName, data, percent }) {
+                  return `${data.name}: \n ${data.value[0]} ${data.value[2]}`
+                }
               },
               emphasis: {
                 show: true
@@ -94,6 +102,11 @@ export default {
           }
         ]
       })
+    },
+    eConsole(param) {
+      if (this.path) {
+        this.$router.push({ path: `/${this.path}`, query: { id: param.data.value[1] }})
+      }
     }
   }
 }
