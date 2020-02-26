@@ -191,7 +191,6 @@ export default {
     fetchInfo() {
       fetchOperationStateList(this.query).then(({ code, data }) => {
         this.statistics = data
-        console.log('this.staticssss', this.statistics)
         this.cards.map(item => {
           item.count = this.statistics.Data[item.prop]
         })
@@ -217,8 +216,8 @@ export default {
     queryList(data) {
       const { time, orgId } = data
       this.query = { ...this.query,
-        startDate: moment(time[0]).format('YYYY-MM-DD'),
-        endDate: moment(time[1]).format('YYYY-MM-DD'),
+        startDate: time ? moment(time[0]).format('YYYY-MM-DD') : '',
+        endDate: time ? moment(time[1]).format('YYYY-MM-DD') : '',
         orgId
       }
       this.fetchInfo()
