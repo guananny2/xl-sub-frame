@@ -26,11 +26,11 @@ export default {
     },
     data: {
       type: Array,
-      default: () => ['aa']
+      default: () => []
     },
     xAxisData: {
       type: Array,
-      default: () => [1]
+      default: () => []
     }
   },
   data() {
@@ -42,18 +42,26 @@ export default {
     data: function(newVal, oldVal) {
       const option = this.chart.getOption()
       option.series[0].data = newVal
-      this.chart.setOption(option)
+      if (this.chart) {
+        this.chart.resize()
+        this.chart.setOption(option)
+      }
     },
     xAxisData: function(newVal, oldVal) {
       const option = this.chart.getOption()
       option.xAxis[0].data = newVal
-      this.chart.setOption(option)
+      if (this.chart) {
+        this.chart.setOption(option)
+      }
     }
   },
   mounted() {
     this.$nextTick(() => {
       this.initChart()
     })
+  },
+  updated() {
+    console.log('this tab is update')
   },
   beforeDestroy() {
     if (!this.chart) {

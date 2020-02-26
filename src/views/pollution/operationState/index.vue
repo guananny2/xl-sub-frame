@@ -9,7 +9,7 @@
 
     <el-row :gutter="40">
       <el-col :xs="24" :sm="24" :lg="12">
-        <el-tabs v-model="activeName.firstPanel">
+        <el-tabs v-model="activeName.firstPanel" @tab-click="handleClick">
           <el-tab-pane label="污处异常企业" name="first">
             <BarChart :x-axis-data="abnormalObj.xAxisData" :data="abnormalObj.AbnormalComList" />
           </el-tab-pane>
@@ -221,6 +221,23 @@ export default {
         orgId
       }
       this.fetchInfo()
+    },
+    handleClick(tab, event) {
+      // 页面tab页切换时 触发BarChart数据更新，以刷新柱状图的渲染
+      switch (this.activeName.firstPanel) {
+        case 'first':
+          this.abnormalObj.AbnormalComList = [...this.abnormalObj.AbnormalComList]
+          break
+        case 'second':
+          this.abnormalObj.InValidComList = [...this.abnormalObj.InValidComList]
+          break
+        case 'third':
+          this.abnormalObj.CheckedComList = [...this.abnormalObj.CheckedComList]
+          break
+        default:
+          this.abnormalObj.PunishedComList = [...this.abnormalObj.PunishedComList]
+          break
+      }
     }
   }
 }
