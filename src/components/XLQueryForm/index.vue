@@ -84,7 +84,9 @@ export default {
   },
   data() {
     return {
-      form: {},
+      form: {
+        otherType: ''
+      },
       props: { // 配置项（必选）
         value: 'id',
         label: 'name',
@@ -92,6 +94,9 @@ export default {
         // disabled:true
       }
     }
+  },
+  created() {
+    this.list.map(item => { item.defaultValue && (this.form[item.field] = item.defaultValue) })
   },
   methods: {
     onSubmit() {

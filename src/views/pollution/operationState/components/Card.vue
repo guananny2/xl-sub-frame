@@ -1,6 +1,6 @@
 <template>
   <div class="card-panel">
-    <router-link :to="{ name: 'AbnormalTrackingCompanyList' }">
+    <router-link :to="{path: data.url, query: {id: data.id}}">
       <el-row class="count">
         <count-to :start-val="0" :end-val="data.count" :duration="2600" class="card-panel-num" />
         <span class="unit">{{ data.unit }}</span>
@@ -26,7 +26,8 @@ export default {
           title: '',
           count: '',
           unit: '',
-          url: ''
+          url: '',
+          id: ''
         }
       }
     }

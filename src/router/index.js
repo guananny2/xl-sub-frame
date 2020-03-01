@@ -120,8 +120,12 @@ export const asyncRoutes = [
         name: 'OperationState',
         meta: {
           title: '运行状况分析'
-          // roles: ['admin'] // or you can only set roles in sub nav
         }
+      },
+      {
+        path: 'companylist',
+        component: () => import('@/views/pollution/operationState/companyList'),
+        hidden: true
       }
     ]
   },

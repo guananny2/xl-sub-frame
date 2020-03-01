@@ -112,42 +112,48 @@ export default {
           prop: 'AbnormalComNum',
           count: 0,
           unit: '家',
-          url: 'abnormal-tracking-company-list'
+          url: 'companylist',
+          id: 0
         },
         {
           title: '有效申报企业',
           prop: 'DeclaredComNum',
           count: 0,
           unit: '家',
-          url: 'abnormal-tracking-company-list'
+          url: 'companylist',
+          id: 1
         },
         {
           title: '无效申报企业',
           prop: 'UndeclaredComNum',
           count: 0,
           unit: '家',
-          url: 'abnormal-tracking-company-list'
+          url: 'companylist',
+          id: 2
         },
         {
           title: '已检查企业',
           prop: 'CheckedComNum',
           count: 0,
           unit: '家',
-          url: 'abnormal-tracking-company-list'
+          url: 'companylist',
+          id: 3
         },
         {
           title: '立案处罚企业',
           prop: 'PunishedComNum',
           count: 0,
           unit: '家',
-          url: 'abnormal-tracking-company-list'
+          url: 'companylist',
+          id: 4
         },
         {
           title: '处罚金额',
           prop: 'PunishedMoney',
           count: 0,
           unit: '万元',
-          url: 'abnormal-tracking-company-list'
+          url: 'companylist',
+          id: 4
         }
       ],
       activeName: {
