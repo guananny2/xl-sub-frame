@@ -1,12 +1,19 @@
 <template>
   <el-select v-model="selectVal" :placeholder="placeholder">
-    <el-option v-for="item in data" :key="item.value" :label="item.label" :value="item.value" />
+    <span v-if="url !== '' || url !== null || url !== undefined">
+      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+    </span>
+    <span v-else>
+      <el-option v-for="item in data" :key="item.value" :label="item.label" :value="item.value" />
+    </span>
   </el-select>
 </template>
 
 <script>
+import { fetchList } from '@/api/select'
+
 export default {
-  name: 'XLSelect',
+  name: 'XLRemoteSelect',
   props: {
     data: {
       type: Array,
@@ -19,6 +26,15 @@ export default {
     value: {
       type: String,
       default: null
+    },
+    url: {
+      type: String,
+      default: ''
+    }
+  },
+  data() {
+    return {
+      options: []
     }
   },
   computed: {
@@ -29,6 +45,13 @@ export default {
       set(val) {
         this.$emit('input', val)
       }
+    }
+  },
+  created() {
+    if (this.url) {
+      fetchList(this.url, this.query).then(({ code, data }) => {
+        this.options = data
+      })
     }
   }
 }

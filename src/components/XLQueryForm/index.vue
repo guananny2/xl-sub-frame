@@ -11,10 +11,11 @@
       </el-form-item>
       <!-- 单选框(数据异步加载) -->
       <el-form-item v-else-if="item.type === 'select'" :label="item.label">
-        <XLRemoteSelect
+        <XLSelect
           v-model="form[item.field]"
           :placeholder="item.placeholder"
           :url="item.url"
+          :data="item.data"
         />
       </el-form-item>
       <!-- 复选框(数据异步加载) -->
@@ -65,14 +66,14 @@
 </template>
 
 <script>
-import XLRemoteSelect from '@/components/XLRemoteSelect'
+import XLSelect from '@/components/XLSelect'
 import XLRemoteMultipleSelect from '@/components/XLRemoteMultipleSelect'
 import XLRemoteTreeSelect from '@/components/XLRemoteTreeSelect'
 
 export default {
   name: 'XLQueryForm',
   components: {
-    XLRemoteSelect,
+    XLSelect,
     XLRemoteMultipleSelect,
     XLRemoteTreeSelect
   },
@@ -96,7 +97,7 @@ export default {
     }
   },
   created() {
-    this.list.map(item => { item.defaultValue && (this.form[item.field] = item.defaultValue) })
+    this.list.map(item => { this.form[item.field] = item.defaultValue })
   },
   methods: {
     onSubmit() {
