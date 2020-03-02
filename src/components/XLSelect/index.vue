@@ -48,11 +48,9 @@ export default {
   computed: {
     selectVal: {
       get() {
-        console.log(1, this.value)
         return this.value
       },
       set(val) {
-        console.log(2, val)
         this.$emit('input', val)
       }
     }
