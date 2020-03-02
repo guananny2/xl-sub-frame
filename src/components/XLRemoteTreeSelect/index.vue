@@ -15,7 +15,7 @@
       <el-tree
         ref="selectTree"
         :accordion="accordion"
-        :data="optionData"
+        :data="options"
         :props="props"
         :show-checkbox="multiple"
         :node-key="props.value"
@@ -32,13 +32,17 @@ import { fetchTreeList } from '@/api/select'
 
 export default {
   props: {
+    optionData: {
+      type: Array,
+      default: () => []
+    },
     // 配置选项
     props: {
       type: Object,
       default: function() {
         return {
           value: 'id', // ID字段名
-          label: 'title', // 显示名称
+          label: 'text', // 显示名称
           children: 'children' // 子级字段名
         }
       }
@@ -92,13 +96,19 @@ export default {
     }
   },
   computed: {
-    optionData() {
+    options() {
       const cloneData = JSON.parse(JSON.stringify(this.data)) // 对源数据深度克隆
-      return cloneData.filter(father => { // 循环所有项，并添加children属性
-        const branchArr = cloneData.filter(child => father.id === child.parentId) // 返回每一项的子级数组
-        branchArr.length > 0 ? father.children = branchArr : '' // 给父级添加一个children属性，并赋值
-        return father.parentId === 0 // 返回第一层
-      })
+      // console.log('cloneData ', cloneData.filter(father => { // 循环所有项，并添加children属性
+      //   const branchArr = cloneData.filter(child => father.id === child.parentId) // 返回每一项的子级数组
+      //   branchArr.length > 0 ? father.children = branchArr : '' // 给父级添加一个children属性，并赋值
+      //   return father.parentId === 0 // 返回第一层
+      // }))
+      return cloneData
+      // return cloneData.filter(father => { // 循环所有项，并添加children属性
+      //   const branchArr = cloneData.filter(child => father.id === child.parentId) // 返回每一项的子级数组
+      //   branchArr.length > 0 ? father.children = branchArr : '' // 给父级添加一个children属性，并赋值
+      //   return father.parentId === 0 // 返回第一层
+      // })
     }
   },
   watch: {
@@ -106,12 +116,17 @@ export default {
       this.valueId = this.value
       this.valueIds = this.values
       this.initHandle()
+    },
+    optionData: function(newVal, oldVal) {
+      this.data = newVal
     }
   },
   created() {
-    fetchTreeList(this.url, this.query).then(({ code, list }) => {
-      this.data = list
-    })
+    if (this.url) {
+      fetchTreeList(this.url, this.query).then(({ code, list }) => {
+        this.data = list
+      })
+    }
   },
   mounted() {
     this.valueId = this.value

@@ -31,7 +31,6 @@ export default {
         token: 6480533415686144,
         orgId: 15542,
         otherType: 0,
-        industryId: 0,
         ind: 0, // 行业
         sdt: '', // 生产状态
         edt: ''
@@ -42,7 +41,12 @@ export default {
           field: 'orgId',
           type: 'treeSelect',
           placeholder: '请选择单位',
-          url: '/search/selectTree'
+          optionData: [],
+          props: {
+            value: 'id', // ID字段名
+            label: 'text', // 显示名称
+            children: 'children' // 子级字段名
+          }
         },
         {
           label: '行业',
@@ -51,20 +55,13 @@ export default {
           labelKey: 'text',
           valueKey: 'id',
           placeholder: '请选择行业',
-          data: this.treeEpIndustry
-        },
-        {
-          label: '行业',
-          field: 'industryId',
-          type: 'select',
-          placeholder: '请选择行业',
-          url: '/search/select'
+          data: []
         },
         {
           label: '筛选条件',
           field: 'otherType',
           type: 'select',
-          defaultValue: null,
+          value: null,
           placeholder: '请选择筛选条件',
           url: '/operationState/select'
         },
@@ -75,8 +72,6 @@ export default {
           placeholder: '请选择生产日期'
         }
       ],
-      treeOrg: {},
-      treeEpIndustry: [],
       companyList: [],
       tableColumns: [
         {
@@ -134,7 +129,7 @@ export default {
       const { id } = this.$route.query
       this.query.otherType = id
       // 初始化 从运行状况分析跳转到企业列表时筛选的默认值
-      this.formList[2].defaultValue = id
+      this.formList[2].value = id
     }
     this.getSelectOptions()
     this.getList()
@@ -150,8 +145,8 @@ export default {
       fetchOperationSelectOptions(params).then(({ code, data }) => {
         const { TreeOrg, TreeEpIndustry } = data
         this.treeOrg = TreeOrg
-        this.treeEpIndustry = TreeEpIndustry
         this.formList[1].data = TreeEpIndustry
+        this.formList[0].optionData = [TreeOrg]
       })
     },
     getList() {

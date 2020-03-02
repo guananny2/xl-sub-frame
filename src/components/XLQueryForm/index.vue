@@ -36,6 +36,7 @@
           :props="props"
           :value="form[item.field]"
           :placeholder="item.placeholder"
+          :option-data="item.optionData"
           :url="item.url"
           @getValue="getValue($event, item.field)"
         />
@@ -87,19 +88,16 @@ export default {
   },
   data() {
     return {
-      form: {
-        otherType: ''
-      },
-      props: { // 配置项（必选）
-        value: 'id',
-        label: 'name',
-        children: 'children'
-        // disabled:true
-      }
+      form: {}
     }
   },
   created() {
-    // this.list.map(item => { this.form[item.field] = item.defaultValue })
+    this.list.map(item => {
+      // TODO 初始化值如何设置？？
+      // console.log(item.field)
+      // this.form[item.field] = item.value || ''
+    })
+    // console.log(this.form)
   },
   methods: {
     onSubmit() {
