@@ -1,11 +1,11 @@
 <template>
   <el-select v-model="selectVal" :placeholder="placeholder">
-    <span v-if="url !== '' || url !== null || url !== undefined">
-      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
-    </span>
-    <span v-else>
-      <el-option v-for="item in data" :key="item.value" :label="item.label" :value="item.value" />
-    </span>
+    <el-option
+      v-for="item in options"
+      :key="valueKey ? item[valueKey] : item.value"
+      :label="labelKey ? item[labelKey] : item.label"
+      :value="valueKey ? item[valueKey] : item.value"
+    />
   </el-select>
 </template>
 
@@ -18,6 +18,14 @@ export default {
     data: {
       type: Array,
       default: () => []
+    },
+    labelKey: {
+      type: String,
+      default: null
+    },
+    valueKey: {
+      type: String,
+      default: null
     },
     placeholder: {
       type: String,
@@ -40,11 +48,18 @@ export default {
   computed: {
     selectVal: {
       get() {
+        console.log(1, this.value)
         return this.value
       },
       set(val) {
+        console.log(2, val)
         this.$emit('input', val)
       }
+    }
+  },
+  watch: {
+    data: function(newVal, oldVal) {
+      this.options = newVal
     }
   },
   created() {

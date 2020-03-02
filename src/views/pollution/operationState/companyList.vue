@@ -7,7 +7,6 @@
 
     <XLTable
       :data="companyList"
-      :pagination="pagination"
       :columns="tableColumns"
     />
 
@@ -32,6 +31,7 @@ export default {
         token: 6480533415686144,
         orgId: 15542,
         otherType: 0,
+        industryId: 0,
         ind: 0, // 行业
         sdt: '', // 生产状态
         edt: ''
@@ -48,14 +48,23 @@ export default {
           label: '行业',
           field: 'ind',
           type: 'select',
+          labelKey: 'text',
+          valueKey: 'id',
           placeholder: '请选择行业',
           data: this.treeEpIndustry
+        },
+        {
+          label: '行业',
+          field: 'industryId',
+          type: 'select',
+          placeholder: '请选择行业',
+          url: '/search/select'
         },
         {
           label: '筛选条件',
           field: 'otherType',
           type: 'select',
-          defaultValue: 0,
+          defaultValue: null,
           placeholder: '请选择筛选条件',
           url: '/operationState/select'
         },
@@ -125,7 +134,7 @@ export default {
       const { id } = this.$route.query
       this.query.otherType = id
       // 初始化 从运行状况分析跳转到企业列表时筛选的默认值
-      this.formList[2].defaultValue = Number(id || 0)
+      this.formList[2].defaultValue = id
     }
     this.getSelectOptions()
     this.getList()
@@ -142,8 +151,7 @@ export default {
         const { TreeOrg, TreeEpIndustry } = data
         this.treeOrg = TreeOrg
         this.treeEpIndustry = TreeEpIndustry
-
-        console.log(this.treeEpIndustry)
+        this.formList[1].data = TreeEpIndustry
       })
     },
     getList() {

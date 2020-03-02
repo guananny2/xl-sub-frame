@@ -16,6 +16,8 @@
           :placeholder="item.placeholder"
           :url="item.url"
           :data="item.data"
+          :label-key="item.labelKey"
+          :value-key="item.valueKey"
         />
       </el-form-item>
       <!-- 复选框(数据异步加载) -->
@@ -97,7 +99,7 @@ export default {
     }
   },
   created() {
-    this.list.map(item => { this.form[item.field] = item.defaultValue })
+    // this.list.map(item => { this.form[item.field] = item.defaultValue })
   },
   methods: {
     onSubmit() {

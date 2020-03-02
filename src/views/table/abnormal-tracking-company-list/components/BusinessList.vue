@@ -59,7 +59,7 @@ export default {
           field: 'statusId',
           type: 'select',
           placeholder: '请选择生产状态',
-          url: '/search/select'
+          url: '/operationState/select'
         }
       ],
       businessList: [],
