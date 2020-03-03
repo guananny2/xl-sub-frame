@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { fetchSelectOptions } from '@/api/operationState'
+import { fetchSelectOptions } from '@/api/select'
 
 export default {
   props: {

@@ -64,7 +64,7 @@
 <script>
 import XLQueryForm from '@/components/XLQueryForm'
 import moment from 'moment'
-import { fetchOperationStateList } from '@/api/operationState'
+import { fetchOperationStateList } from '@/api/pollution/operationState'
 import CardList from './components/CardList'
 import BarChart from '@/components/XLCharts/BarChart'
 import HeapUpBarChart from '@/components/XLCharts/HeapUpBarChart'

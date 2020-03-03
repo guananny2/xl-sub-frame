@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { fetchOperationCompanyList, fetchOperationSelectOptions } from '@/api/operationState'
+import { fetchOperationCompanyList, fetchOperationSelectOptions } from '@/api/pollution/operationState'
 import XLTable from '@/components/XLTable'
 import XLQueryForm from '@/components/XLQueryForm'
 import moment from 'moment'
