@@ -134,6 +134,11 @@ export const asyncRoutes = [
         meta: {
           title: '事前申报审核'
         }
+      },
+      {
+        path: 'handleInfo/:id',
+        component: () => import('@/views/pollution/failureBeforehand/handleInfo'),
+        hidden: true
       }
     ]
   },

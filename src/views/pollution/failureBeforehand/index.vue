@@ -129,7 +129,12 @@ export default {
         {
           label: '操作',
           prop: 'Money',
-          align: 'center'
+          align: 'center',
+          render: (row, index) => {
+            return (
+              <router-link to={`handleInfo/${row.id}`} class='link-type'>查看详情</router-link>
+            )
+          }
         }
       ]
     }
