@@ -7,7 +7,6 @@
 
     <XLTable
       :data="businessList"
-      :pagination="pagination"
       :columns="tableColumns"
       :show-summary="true"
       :summary-method="getSummaries"
@@ -50,43 +49,49 @@ export default {
         {
           label: '行业',
           field: 'industryId',
-          type: 'treeSelect',
-          placeholder: '请选择机构',
-          url: '/search/selectTree'
+          type: 'select',
+          placeholder: '请选择行业',
+          labelKey: 'text',
+          valueKey: 'id',
+          url: '/operationState/inds',
+          method: 'POST'
         },
         {
           label: '生产状态',
           field: 'statusId',
           type: 'select',
           placeholder: '请选择生产状态',
-          url: '/operationState/select'
+          url: '/operationState/status',
+          method: 'POST',
+          labelKey: 'OptionValue',
+          valueKey: 'OptionKay'
         }
       ],
       businessList: [],
       tableColumns: [
         {
           label: '机构',
-          prop: 'date1',
+          prop: 'OutName',
           align: 'center',
           render: (row, index) => {
             return (
-              <router-link to={`business-list/${row.date1}`} class='link-type'>{ row.date1 }</router-link>
+              <router-link to={`business-list/${row.OutId}`} class='link-type'>{ row.OutName }</router-link>
             )
           }
         },
         {
           label: '企业数量(家)',
-          prop: 'date2',
+          prop: 'OutTotalCompany',
           align: 'center'
         },
         {
           label: '产污设施数量(处)',
-          prop: 'date3',
+          prop: 'OutTotalEP_Pf',
           align: 'center'
         },
         {
           label: '污处设施数量(处)',
-          prop: 'date4',
+          prop: 'OutTotalEP_Ep',
           align: 'center'
         },
         {
@@ -96,22 +101,22 @@ export default {
           children: [
             {
               label: '总数',
-              prop: 'name1',
+              prop: 'OutTotalDevice',
               align: 'center'
             },
             {
               label: '运行',
-              prop: 'name2',
+              prop: 'OutRunCount',
               align: 'center'
             },
             {
               label: '停用',
-              prop: 'name3',
+              prop: 'OutDisabledCount',
               align: 'center'
             },
             {
               label: '调试',
-              prop: 'name4',
+              prop: 'OutDebugCount',
               align: 'center'
             }
           ]

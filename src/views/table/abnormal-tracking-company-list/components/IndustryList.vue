@@ -53,45 +53,53 @@ export default {
           field: 'orgId',
           type: 'treeSelect',
           placeholder: '请选择机构',
-          url: '/search/selectTree'
+          props: {
+            value: 'id', // ID字段名
+            label: 'text', // 显示名称
+            children: 'children' // 子级字段名
+          },
+          url: '/operationState/orgs'
         },
         {
           label: '生产状态',
           field: 'statusId',
           type: 'select',
           placeholder: '请选择生产状态',
-          url: '/search/select'
+          url: '/operationState/status',
+          method: 'POST',
+          labelKey: 'OptionValue',
+          valueKey: 'OptionKay'
         }
       ],
       tableColumns: [
         {
           label: '机构',
-          prop: 'date1',
+          prop: 'OutName',
           headerAlign: 'center',
           align: 'center',
           width: '100',
           render: (row, index) => {
             return (
-              <router-link to={`/table/company-info/${row.date1}`} class='link-type'>{ row.date1 }</router-link>
+              <router-link to={`business-list/null/${row.OutId}`} class='link-type'>{ row.OutName }</router-link>
             )
           }
         },
         {
           label: '企业数量(家)',
           align: 'center',
-          prop: 'date2',
+          prop: 'OutTotalCompany',
           headerAlign: 'center'
         },
         {
           label: '产污设施数量(处)',
-          prop: 'date3',
+          prop: 'OutTotalEP_Pf',
           headerAlign: 'center',
           align: 'center',
           width: '120'
         },
         {
           label: '污处设施数量(处)',
-          prop: 'date4',
+          prop: 'OutTotalEP_Ep',
           headerAlign: 'center',
           align: 'center',
           width: '120'
@@ -104,29 +112,25 @@ export default {
             {
               label: '总数',
               align: 'center',
-              headerAlign: 'center',
-              prop: 'name1',
+              prop: 'OutTotalDevice',
               width: '100'
             },
             {
               label: '运行',
               align: 'center',
-              headerAlign: 'center',
-              prop: 'name2',
+              prop: 'OutRunCount',
               width: '100'
             },
             {
               label: '停用',
               align: 'center',
-              headerAlign: 'center',
-              prop: 'name3',
+              prop: 'OutDisabledCount',
               width: '100'
             },
             {
               label: '调试',
               align: 'center',
-              headerAlign: 'center',
-              prop: 'name4',
+              prop: 'OutDebugCount',
               width: '100'
             }
           ]

@@ -1,9 +1,9 @@
 import request from '@/utils/request'
 
-export function fetchList(url) {
+export function fetchList(url, method) {
   return request({
-    url: url,
-    method: 'get'
+    url,
+    method
   })
 }
 

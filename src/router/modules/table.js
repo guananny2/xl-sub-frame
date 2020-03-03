@@ -20,7 +20,7 @@ const tableRouter = {
       // hidden: true
     },
     {
-      path: 'business-list/:id',
+      path: 'business-list/:orgId?/:indId?',
       component: () => import('@/views/table/business-list/index'),
       name: 'BusinessList',
       meta: { title: '企业列表' }

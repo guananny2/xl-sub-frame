@@ -15,9 +15,11 @@
           v-model="form[item.field]"
           :placeholder="item.placeholder"
           :url="item.url"
+          :method="item.method"
           :data="item.data"
           :label-key="item.labelKey"
           :value-key="item.valueKey"
+          @getValue="getValue($event, item.field)"
         />
       </el-form-item>
       <!-- 复选框(数据异步加载) -->
@@ -88,13 +90,21 @@ export default {
   },
   data() {
     return {
-      form: {}
+      form: {
+        // orgId: '',
+        // ind: '',
+        // otherType: '',
+        // time: []
+      }
     }
   },
-  created() {
+  mounted() {
     this.list.map(item => {
       // TODO 初始化值如何设置？？
-      // console.log(item.field)
+      // console.log('遍历值', item.field, item.value)
+      if (item.value !== undefined) {
+        // this.form[item.field] = item.value
+      }
       // this.form[item.field] = item.value || ''
     })
     // console.log(this.form)
@@ -104,6 +114,7 @@ export default {
       this.$emit('onSubmit', this.form)
     },
     getValue(value, field) {
+      console.log('queryForm', value, field)
       this.form[field] = value
     }
   }

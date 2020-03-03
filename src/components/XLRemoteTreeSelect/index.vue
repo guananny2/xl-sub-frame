@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { fetchOperationOrgs } from '@/api/operationState'
+import { fetchSelectOptions } from '@/api/operationState'
 
 export default {
   props: {
@@ -53,7 +53,7 @@ export default {
     },
     // 初始值
     value: {
-      type: Number,
+      type: [Number, String],
       default: null
     },
     // 初始值 复选
@@ -123,7 +123,7 @@ export default {
   },
   created() {
     if (this.url) {
-      fetchOperationOrgs(this.url, { method: 'Ut in officia Lorem' }).then(({ code, data }) => {
+      fetchSelectOptions(this.url, { method: 'Ut in officia Lorem' }).then(({ code, data }) => {
         this.data = [data]
       })
     }

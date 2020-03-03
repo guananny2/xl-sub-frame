@@ -69,6 +69,7 @@ export default {
           label: '时间',
           field: 'time',
           type: 'daterange',
+          value: [new Date(), new Date()],
           placeholder: '请选择生产日期'
         }
       ],

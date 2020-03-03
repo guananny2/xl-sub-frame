@@ -1,5 +1,8 @@
 <template>
-  <el-select v-model="selectVal" :placeholder="placeholder">
+  <el-select
+    v-model="selectVal"
+    :placeholder="placeholder"
+  >
     <el-option
       v-for="item in options"
       :key="valueKey ? item[valueKey] : item.value"
@@ -38,6 +41,10 @@ export default {
     url: {
       type: String,
       default: ''
+    },
+    method: {
+      type: String,
+      default: 'GET'
     }
   },
   data() {
@@ -62,7 +69,7 @@ export default {
   },
   created() {
     if (this.url) {
-      fetchList(this.url, this.query).then(({ code, data }) => {
+      fetchList(this.url, this.method, this.query).then(({ code, data }) => {
         this.options = data
       })
     }
