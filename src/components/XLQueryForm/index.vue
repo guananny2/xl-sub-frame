@@ -91,23 +91,16 @@ export default {
   data() {
     return {
       form: {
-        // orgId: '',
-        // ind: '',
-        // otherType: '',
-        // time: []
       }
     }
   },
-  mounted() {
+  created() {
+    // 初始化queryform的值
+    const init = {}
     this.list.map(item => {
-      // TODO 初始化值如何设置？？
-      // console.log('遍历值', item.field, item.value)
-      if (item.value !== undefined) {
-        // this.form[item.field] = item.value
-      }
-      // this.form[item.field] = item.value || ''
+      init[item.field] = item.value
     })
-    // console.log(this.form)
+    this.form = init
   },
   methods: {
     onSubmit() {
