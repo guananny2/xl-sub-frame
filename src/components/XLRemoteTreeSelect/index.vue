@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { fetchTreeList } from '@/api/select'
+import { fetchOperationOrgs } from '@/api/operationState'
 
 export default {
   props: {
@@ -42,7 +42,7 @@ export default {
       default: function() {
         return {
           value: 'id', // ID字段名
-          label: 'text', // 显示名称
+          label: 'label', // 显示名称
           children: 'children' // 子级字段名
         }
       }
@@ -123,8 +123,8 @@ export default {
   },
   created() {
     if (this.url) {
-      fetchTreeList(this.url, this.query).then(({ code, list }) => {
-        this.data = list
+      fetchOperationOrgs(this.url, { method: 'Ut in officia Lorem' }).then(({ code, data }) => {
+        this.data = [data]
       })
     }
   },

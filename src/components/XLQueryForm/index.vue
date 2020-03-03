@@ -33,7 +33,7 @@
       <!-- 单选树形下拉框(数据异步加载) -->
       <el-form-item v-else-if="item.type === 'treeSelect'" :label="item.label">
         <XLRemoteTreeSelect
-          :props="props"
+          :props="item.props"
           :value="form[item.field]"
           :placeholder="item.placeholder"
           :option-data="item.optionData"

@@ -97,7 +97,12 @@ export default {
           field: 'orgId',
           type: 'treeSelect',
           placeholder: '请选择机构',
-          url: '/search/selectTree'
+          props: {
+            value: 'id', // ID字段名
+            label: 'text', // 显示名称
+            children: 'children' // 子级字段名
+          },
+          url: '/operationState/orgs'
         },
         {
           label: '时间',
@@ -200,23 +205,44 @@ export default {
         this.cards.map(item => {
           item.count = this.statistics.Data[item.prop]
         })
+        const xAxis = []
+        const abnormalList = []
+        const inValidList = []
+        const checkedList = []
+        const punishedList = []
         this.statistics.Data.AbnormalComDistribution.map(item => {
-          this.abnormalObj.xAxisData.push(item.OrgName)
-          this.abnormalObj.AbnormalComList.push(item.AbnormalComList.length)
-          this.abnormalObj.InValidComList.push(item.InValidComList.length)
-          this.abnormalObj.CheckedComList.push(item.CheckedComList.length)
-          this.abnormalObj.PunishedComList.push(item.PunishedComList.length)
+          xAxis.push(item.OrgName)
+          abnormalList.push(item.AbnormalComList.length)
+          inValidList.push(item.InValidComList.length)
+          checkedList.push(item.CheckedComList.length)
+          punishedList.push(item.PunishedComList.length)
         })
+        this.abnormalObj.xAxisData = [...xAxis]
+        this.abnormalObj.AbnormalComList = [...abnormalList]
+        this.abnormalObj.InValidComList = [...inValidList]
+        this.abnormalObj.CheckedComList = [...checkedList]
+        this.abnormalObj.PunishedComList = [...punishedList]
+
+        const abnormalNumData = []
+        const abnormalAxisData = []
         this.statistics.Data.AbnormalComTop10.map(item => {
-          this.abnormalTopObj.data.push(item.AbnormalNum)
-          this.abnormalTopObj.yAxisData.push({ value: { value: item.CompanyName, id: item.CompanyId }})
+          abnormalNumData.push(item.AbnormalNum)
+          abnormalAxisData.push({ value: { value: item.CompanyName, id: item.CompanyId }})
         })
+        this.abnormalTopObj.data = [...abnormalNumData]
+        this.abnormalTopObj.yAxisData = [...abnormalAxisData]
+
+        const abnormalIndustryData = []
         this.statistics.Data.AbnormalComIndustrys.map(item => {
-          this.abnormalIndustryObj.data.push({ value: [item.AbnormalComNum, item.IndustryId, '家'], name: item.IndustryName })
+          abnormalIndustryData.push({ value: [item.AbnormalComNum, item.IndustryId, '家'], name: item.IndustryName })
         })
+        this.abnormalIndustryObj.data = [...abnormalIndustryData]
+
+        const abnormalReasonsData = []
         this.statistics.Data.AbnormalReasons.map(item => {
-          this.abnormalReasonsObj.data.push({ value: [item.ReasonNum, item.ReasonId, '次'], name: item.Reason })
+          abnormalReasonsData.push({ value: [item.ReasonNum, item.ReasonId, '次'], name: item.Reason })
         })
+        this.abnormalReasonsObj.data = [...abnormalReasonsData]
       })
     },
     queryList(data) {

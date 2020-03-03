@@ -34,3 +34,15 @@ export function fetchOperationSelectOptions(params) {
     params
   })
 }
+
+/**
+ * 获取机构树
+ * @param {*} params 请求参数
+ */
+export function fetchOperationOrgs(params) {
+  return request({
+    url: '/operationState/orgs',
+    method: 'post',
+    params
+  })
+}

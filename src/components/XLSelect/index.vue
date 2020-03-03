@@ -32,7 +32,7 @@ export default {
       default: '请选择'
     },
     value: {
-      type: String,
+      type: [String, Number],
       default: null
     },
     url: {

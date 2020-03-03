@@ -135,9 +135,6 @@ export default {
     this.getList()
   },
   methods: {
-    onSubmit() {
-      this.getList()
-    },
     getSelectOptions() {
       const params = {
         method: 'GetIndustry'
@@ -155,8 +152,8 @@ export default {
       })
     },
     queryList(val) {
-      const { time } = val
-      const { token, orgId, otherType, ind } = this.query
+      const { time, otherType, orgId, ind } = val
+      const { token } = this.query
       this.query = {
         token,
         orgId,
