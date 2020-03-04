@@ -15,3 +15,19 @@ export function fetchStatus(params) {
     params
   })
 }
+
+export function fetchReviewStatus(params) {
+  return request({
+    url: '/failureBeforehand/status',
+    method: 'get',
+    params
+  })
+}
+
+export function fetchReviewDetail(params) {
+  return request({
+    url: '/failureBeforehand/detail',
+    method: 'get',
+    params
+  })
+}

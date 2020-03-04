@@ -15,7 +15,7 @@
       <el-tree
         ref="selectTree"
         :accordion="accordion"
-        :data="options"
+        :data="data"
         :props="props"
         :show-checkbox="multiple"
         :node-key="props.value"
@@ -32,10 +32,6 @@ import { fetchSelectOptions } from '@/api/select'
 
 export default {
   props: {
-    optionData: {
-      type: Array,
-      default: () => []
-    },
     // 配置选项
     props: {
       type: Object,
@@ -95,53 +91,41 @@ export default {
       data: []
     }
   },
-  computed: {
-    options() {
-      const cloneData = JSON.parse(JSON.stringify(this.data)) // 对源数据深度克隆
-      // console.log('cloneData ', cloneData.filter(father => { // 循环所有项，并添加children属性
-      //   const branchArr = cloneData.filter(child => father.id === child.parentId) // 返回每一项的子级数组
-      //   branchArr.length > 0 ? father.children = branchArr : '' // 给父级添加一个children属性，并赋值
-      //   return father.parentId === 0 // 返回第一层
-      // }))
-      return cloneData
-      // return cloneData.filter(father => { // 循环所有项，并添加children属性
-      //   const branchArr = cloneData.filter(child => father.id === child.parentId) // 返回每一项的子级数组
-      //   branchArr.length > 0 ? father.children = branchArr : '' // 给父级添加一个children属性，并赋值
-      //   return father.parentId === 0 // 返回第一层
-      // })
-    }
-  },
   watch: {
-    value() {
+    value: function() {
       this.valueId = this.value
       this.valueIds = this.values
       this.initHandle()
-    },
-    optionData: function(newVal, oldVal) {
-      this.data = newVal
     }
   },
   created() {
     if (this.url) {
-      fetchSelectOptions(this.url, { method: 'Ut in officia Lorem' }).then(({ code, data }) => {
+      fetchSelectOptions(this.url, { method: 'POST' }).then(({ code, data }) => {
         this.data = [data]
+        if (!this.value) {
+          this.valueId = data.id
+        }
       })
     }
   },
   mounted() {
-    this.valueId = this.value
-    this.valueIds = this.values
+    // this.valueId = this.value
+    // this.valueIds = this.values
     this.initHandle()
   },
   methods: {
     // 初始化值
     initHandle() {
       if (!this.multiple) {
+        console.log('tree select 树形下拉框的初始值', this.value, this.valueId)
         // 单选
         if (this.valueId) {
-          this.valueTitle = this.$refs.selectTree.getNode(this.valueId).data[this.props.label]
-          this.$refs.selectTree.setCurrentKey(this.valueId) // 设置默认选中
-          this.defaultExpandedKey = [this.valueId]
+          console.log(this.$refs.selectTree.getNode(this.valueId))
+          if (this.$refs.selectTree.getNode(this.valueId)) {
+            this.valueTitle = this.$refs.selectTree.getNode(this.valueId).data[this.props.label]
+            this.$refs.selectTree.setCurrentKey(this.valueId) // 设置默认选中
+            this.defaultExpandedKey = [this.valueId]
+          }
         }
       } else {
         // 开启复选

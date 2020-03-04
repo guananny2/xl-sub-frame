@@ -102,7 +102,6 @@ export default {
             label: 'text', // 显示名称
             children: 'children' // 子级字段名
           },
-          // value: '15542',
           url: '/operationState/orgs'
         },
         {
@@ -110,7 +109,7 @@ export default {
           field: 'time',
           type: 'daterange',
           value: [new Date(), new Date()],
-          placeholder: '请选择生产日期'
+          placeholder: '请选择时间'
         }
       ],
       cards: [

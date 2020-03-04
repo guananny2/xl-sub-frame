@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { fetchOperationCompanyList, fetchOperationSelectOptions } from '@/api/pollution/operationState'
+import { fetchOperationCompanyList } from '@/api/pollution/operationState'
 import XLTable from '@/components/XLTable'
 import XLQueryForm from '@/components/XLQueryForm'
 import moment from 'moment'
@@ -41,12 +41,12 @@ export default {
           field: 'orgId',
           type: 'treeSelect',
           placeholder: '请选择单位',
-          optionData: [],
           props: {
             value: 'id', // ID字段名
             label: 'text', // 显示名称
             children: 'children' // 子级字段名
-          }
+          },
+          url: '/operationState/orgs'
         },
         {
           label: '行业',
@@ -55,7 +55,8 @@ export default {
           labelKey: 'text',
           valueKey: 'id',
           placeholder: '请选择行业',
-          data: []
+          url: '/operationState/inds',
+          method: 'POST'
         },
         {
           label: '筛选条件',
@@ -132,21 +133,9 @@ export default {
       // 初始化 从运行状况分析跳转到企业列表时筛选的默认值
       this.formList[2].value = id
     }
-    this.getSelectOptions()
     this.getList()
   },
   methods: {
-    getSelectOptions() {
-      const params = {
-        method: 'GetIndustry'
-      }
-      fetchOperationSelectOptions(params).then(({ code, data }) => {
-        const { TreeOrg, TreeEpIndustry } = data
-        this.treeOrg = TreeOrg
-        this.formList[1].data = TreeEpIndustry
-        this.formList[0].optionData = [TreeOrg]
-      })
-    },
     getList() {
       fetchOperationCompanyList(this.query).then(({ code, data }) => {
         this.companyList = data

@@ -62,15 +62,16 @@ export default {
       }
     }
   },
-  watch: {
-    data: function(newVal, oldVal) {
-      this.options = newVal
-    }
-  },
   created() {
     if (this.url) {
       fetchList(this.url, this.method, this.query).then(({ code, data }) => {
         this.options = data
+        if (this.value === null) {
+          if (data && data.length > 0) {
+            const item = data[0]
+            this.selectVal = this.valueKey ? item[this.valueKey] : item.value
+          }
+        }
       })
     }
   }
