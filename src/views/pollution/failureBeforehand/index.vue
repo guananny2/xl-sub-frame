@@ -97,7 +97,10 @@ export default {
         {
           label: '申报时间',
           prop: 'declareDateTime',
-          align: 'center'
+          align: 'center',
+          formatter: (row, column, index1, idx2) => {
+            return moment(row.declareDateTime, 'YYYYMMDDHHmm').format('YYYY-MM-DD HH:mm')
+          }
         },
         {
           label: '维护设施',
