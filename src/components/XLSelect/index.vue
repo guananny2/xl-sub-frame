@@ -66,7 +66,7 @@ export default {
     if (this.url) {
       fetchList(this.url, this.method, this.query).then(({ code, data }) => {
         this.options = data
-        if (this.value === null) {
+        if (this.value === null || this.value === '') {
           if (data && data.length > 0) {
             const item = data[0]
             this.selectVal = this.valueKey ? item[this.valueKey] : item.value
