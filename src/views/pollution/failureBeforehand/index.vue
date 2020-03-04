@@ -30,7 +30,7 @@ export default {
     return {
       query: {
         token: 6480533415686144,
-        pageSize: 7,
+        pageSize: 10,
         page: 0,
         sortOrder: 'asc',
         yqName: '',
@@ -106,15 +106,20 @@ export default {
         },
         {
           label: '起始时间',
-          prop: 'startTime',
           align: 'center',
-          sortable: true
+          sortable: true,
+          formatter: (row, column, index1, idx2) => {
+            return moment(row.startTime, 'YYYYMMDDHHmm').format('YYYY-MM-DD HH:mm')
+          }
         },
         {
           label: '结束时间',
           prop: 'endTime',
           align: 'center',
-          sortable: true
+          sortable: true,
+          formatter: (row, column, index1, idx2) => {
+            return moment(row.endTime, 'YYYYMMDDHHmm').format('YYYY-MM-DD HH:mm')
+          }
         },
         {
           label: '受理状态',

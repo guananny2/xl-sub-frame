@@ -6,7 +6,7 @@
     <div class="error">
       <span class="title">异常信息</span>
       <el-divider />
-      <span class="detail">{{ applyInfo.entName }}  > {{ applyInfo.devicesString }}于{{ applyInfo.startTime }}至{{ applyInfo.endTime }}{{ applyInfo.productStatusName }}维护</span>
+      <span class="detail">{{ applyInfo.entName }}  > {{ applyInfo.devicesString }}于 {{ start }} 至 {{ end }} {{ applyInfo.productStatusName }}维护</span>
     </div>
     <div class="apply">
       <span class="title">环保设备维护信息申报</span>
@@ -77,6 +77,7 @@
 <script>
 import { fetchReviewStatus, fetchReviewDetail } from '@/api/pollution/failureBeforehand'
 import XLSelect from '@/components/XLSelect'
+import moment from 'moment'
 
 export default {
   name: 'HandleInfo',
@@ -88,11 +89,21 @@ export default {
       id: '',
       applyInfo: {},
       status: [],
+      message: 'Hello',
       form: {
         id: '',
         code: '',
         desc: ''
       }
+    }
+  },
+  computed: {
+    // 计算属性的 getter
+    start: function() {
+      return moment(this.applyInfo.startTime, 'YYYYMMDDHHmm').format('YYYY-MM-DD HH:mm')
+    },
+    end: function() {
+      return moment(this.applyInfo.endTime, 'YYYYMMDDHHmm').format('YYYY-MM-DD HH:mm')
     }
   },
   created() {
