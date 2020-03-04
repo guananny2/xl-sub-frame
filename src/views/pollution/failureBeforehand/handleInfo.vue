@@ -117,20 +117,17 @@ export default {
   },
   methods: {
     getList() {
-      fetchReviewStatus(this.query).then(({ code, data }) => {
-        // TODO 逻辑判断
+      fetchReviewStatus(this.query).then(({ data }) => {
         this.status = data
-        console.log('审核状态', data)
       })
     },
     gethandleInfo() {
-      fetchReviewDetail(this.query).then(({ code, data }) => {
-        // TODO 逻辑判断
+      fetchReviewDetail(this.query).then(({ data }) => {
         this.applyInfo = data
-        console.log('详情', this.applyInfo)
       })
     },
     onSubmit() {
+      // TODO 调用审核接口
       console.log('this form', this.form)
     }
   }
