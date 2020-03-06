@@ -125,12 +125,13 @@ export const asyncRoutes = [
       {
         path: 'companylist',
         component: () => import('@/views/pollution/operationState/companyList'),
+        name: 'Companylist',
         hidden: true
       },
       {
         path: 'failureBeforehand',
         component: () => import('@/views/pollution/failureBeforehand'),
-        name: 'failureBeforehand',
+        name: 'FailureBeforehand',
         meta: {
           title: '事前申报审核'
         }
@@ -138,7 +139,35 @@ export const asyncRoutes = [
       {
         path: 'handleInfo/:id',
         component: () => import('@/views/pollution/failureBeforehand/handleInfo'),
+        name: 'HandleInfo',
         hidden: true
+      },
+      {
+        path: 'abnormal',
+        redirect: '/pollution/abnormal/failureDeclarationH',
+        name: 'Abnormal',
+        component: () => import('@/views/pollution/abnormal'),
+        meta: {
+          title: '异常情况处置'
+        },
+        children: [
+          {
+            path: 'failureDeclarationH',
+            component: () => import('@/views/pollution/abnormal/failureDeclarationH'),
+            name: 'FailureDeclarationH',
+            meta: {
+              title: '企业自查自改'
+            }
+          },
+          {
+            path: 'operationState',
+            component: () => import('@/views/pollution/operationState'),
+            name: 'OperationState',
+            meta: {
+              title: '运行状况分析'
+            }
+          }
+        ]
       }
     ]
   },

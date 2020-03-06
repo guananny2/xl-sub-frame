@@ -20,7 +20,7 @@ import XLQueryForm from '@/components/XLQueryForm'
 import moment from 'moment'
 
 export default {
-  name: 'BusinessList',
+  name: 'Companylist',
   components: {
     XLTable,
     XLQueryForm
