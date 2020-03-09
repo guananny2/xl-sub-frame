@@ -44,7 +44,7 @@ module.exports = {
         target: 'http://yapi.demo.qunar.com/mock/50490',
         changeOrigin: true,
         pathRewrite: {
-          ['^' + process.env.VUE_APP_BASE_API]: ''
+          [process.env.VUE_APP_BASE_API]: ''
         }
       }
     }

@@ -19,9 +19,6 @@ export default {
     key() {
       return this.$route.path
     }
-  },
-  updated() {
-    console.log('updated 缓存视图', this.$store.state.tagsView)
   }
 }
 </script>
