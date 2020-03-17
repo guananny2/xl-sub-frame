@@ -4,7 +4,7 @@ export default [
     type: 'get',
     response: () => {
       return {
-        code: 20000,
+        code: 200,
         data: {
           buttons: ['add', 'delete', 'edit']
         }
