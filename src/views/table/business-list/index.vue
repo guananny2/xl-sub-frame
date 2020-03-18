@@ -23,6 +23,7 @@
 import { fetchCompantList } from '@/api/tracking-company-list'
 import XLTable from '@/components/XLTable'
 import XLQueryForm from '@/components/XLQueryForm'
+import myMixin from '@/mixins/positionMixin'
 
 export default {
   name: 'BusinessList',
@@ -30,6 +31,7 @@ export default {
     XLTable,
     XLQueryForm
   },
+  mixins: [myMixin],
   data() {
     return {
       value: '',
@@ -167,7 +169,7 @@ export default {
       ],
       formList: [
         {
-          label: '名称',
+          label: '名e称',
           field: 'companyName',
           type: 'input',
           dataType: 'text',
@@ -236,7 +238,6 @@ export default {
         pageIndex: 1,
         pageSize: val
       }
-      console.log('size change', this.pagination)
 
       this.query = {
         ...this.query,
