@@ -222,7 +222,6 @@ export default {
   },
   created() {
     this.value = this.$route.params
-    console.log('params', this.value)
     this.getList()
   },
   methods: {

@@ -15,7 +15,7 @@ NProgress.configure({ showSpinner: false }) // NProgress Configuration
 const whiteList = ['/login', '/auth-redirect'] // no redirect whitelist
 
 router.beforeEach(async(to, from, next) => {
-  console.log('from', from, to)
+  // console.log('userInfo', userInfo)
   // 从框架系统访问子系统时，需先获取框架传递的token,作为统一令牌
   if (to && to.query && to.query.token) {
     store.dispatch('user/loginByToken', to.query.token)
@@ -46,7 +46,6 @@ router.beforeEach(async(to, from, next) => {
   const hasToken = getToken()
 
   if (hasToken) {
-    console.log('this is has token')
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
       next({ path: '/' })

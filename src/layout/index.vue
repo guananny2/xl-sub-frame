@@ -1,7 +1,12 @@
 <template>
   <div :class="classObj" class="app-wrapper">
     <div v-if="parentShowHeader">
-      <app-main />
+      <div :class="{hasTagsView:needTagsView}">
+        <div v-show="false" :class="{'fixed-header':fixedHeader}">
+          <tags-view v-if="needTagsView" />
+        </div>
+        <app-main />
+      </div>
     </div>
     <div v-else>
       <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
@@ -25,6 +30,7 @@ import RightPanel from '@/components/RightPanel'
 import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
+// import { isInIcestark } from '@ice/stark-app'
 
 export default {
   name: 'Layout',
@@ -41,6 +47,7 @@ export default {
     return {
       parentToken: '',
       parentShowHeader: true
+      // isInIcestark: isInIcestark()
     }
   },
   computed: {

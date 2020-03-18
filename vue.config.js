@@ -42,13 +42,29 @@ module.exports = {
       [process.env.VUE_APP_BASE_API]: {
         // target: `http://127.0.0.1:${port}/mock`,
         target: 'http://yapi.demo.qunar.com/mock/50490',
+        // target: 'http://localhost:9527/mock',
         changeOrigin: true,
         pathRewrite: {
-          [process.env.VUE_APP_BASE_API]: ''
+          // ['^' + process.env.VUE_APP_BASE_API]: ''
+          ['^' + process.env.VUE_APP_BASE_API]: ''
         }
       }
+    },
+    before(app) {
+      app.use((req, res, next) => {
+        // set cros for all served files
+        res.set('Access-Control-Allow-Origin', '*')
+        res.set('Access-Control-Allow-Headers', '*')
+        res.set('Access-Control-Allow-Methods', '*')
+        res.header('Access-Control-Allow-Credentials', true)
+        if (req.method === 'OPTIONS') {
+          res.send(204)
+          return
+        }
+        next()
+      })
     }
-    // after: require('./mock/mock-server.js')
+    // before: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that

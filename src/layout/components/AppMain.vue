@@ -13,7 +13,6 @@ export default {
   name: 'AppMain',
   computed: {
     cachedViews() {
-      console.log('缓存视图', this.$store.state.tagsView.cachedViews)
       return this.$store.state.tagsView.cachedViews
     },
     key() {
