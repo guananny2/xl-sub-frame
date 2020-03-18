@@ -1,6 +1,6 @@
 <template>
   <div :class="classObj" class="app-wrapper">
-    <div v-if="parentShowHeader">
+    <div v-if="!parentShowHeader">
       <div :class="{hasTagsView:needTagsView}">
         <div v-show="false" :class="{'fixed-header':fixedHeader}">
           <tags-view v-if="needTagsView" />
@@ -30,7 +30,6 @@ import RightPanel from '@/components/RightPanel'
 import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
-// import { isInIcestark } from '@ice/stark-app'
 
 export default {
   name: 'Layout',
@@ -47,7 +46,6 @@ export default {
     return {
       parentToken: '',
       parentShowHeader: true
-      // isInIcestark: isInIcestark()
     }
   },
   computed: {
@@ -70,7 +68,9 @@ export default {
   created() {
     const parentFrame = this.$route.query
     this.parentToken = parentFrame.token
-    this.parentShowHeader = parentFrame.showHeader
+    if (parentFrame.showHeader) {
+      this.parentShowHeader = false
+    }
   },
   methods: {
     handleClickOutside() {
