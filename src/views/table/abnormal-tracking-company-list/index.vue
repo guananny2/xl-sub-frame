@@ -16,7 +16,7 @@ import BusinessList from './components/BusinessList'
 import IndustryList from './components/IndustryList'
 
 export default {
-  name: 'ComplexTable',
+  name: 'AbnormalTrackingCompanyList',
   components: {
     BusinessList,
     IndustryList
