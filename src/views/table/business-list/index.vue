@@ -5,6 +5,7 @@
       @onSubmit="queryList"
     />
 
+    <Button type="primary" @click="toJSPPage">跳转至jsp页面</Button>
     <XLTable
       :data="list"
       :pagination="pagination"
@@ -24,6 +25,7 @@ import { fetchCompantList } from '@/api/tracking-company-list'
 import XLTable from '@/components/XLTable'
 import XLQueryForm from '@/components/XLQueryForm'
 import myMixin from '@/mixins/positionMixin'
+import { sendMessage } from '@/utils/request'
 
 export default {
   name: 'BusinessList',
@@ -169,7 +171,7 @@ export default {
       ],
       formList: [
         {
-          label: '名e称',
+          label: '名称',
           field: 'companyName',
           type: 'input',
           dataType: 'text',
@@ -267,6 +269,17 @@ export default {
     queryList(val) {
       this.query = { ...this.query, ...val }
       this.getList()
+    },
+    toJSPPage() {
+      sendMessage({
+        sysCode: '102',
+        res: 'arc/ent/companyCount.jsp',
+        SPAToOtherFrame: true, // 兼容已有的框架，和框架通信标志（任意单页面跳转至已有的项目的某个页面，由框架统一调度）
+        params: {
+          orgId: '13920',
+          isImportamt: 1
+        }
+      })
     }
   }
 }
